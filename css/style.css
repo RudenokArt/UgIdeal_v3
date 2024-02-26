@@ -1,0 +1,19 @@
+.content {
+	min-height: 75vh;
+}
+
+.sidebar-menu-category {
+	position: relative;
+}
+
+.sidebar-menu-category-angle {
+	position: absolute;
+	top: 0;
+	right: 10px;
+}
+
+.delete_category_button {
+	border: none;
+	background: transparent;
+	color: firebrick;
+}
