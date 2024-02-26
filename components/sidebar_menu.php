@@ -1,5 +1,12 @@
 <?php 
 
+if ($_POST['edit_category']) {
+	wp_update_category([
+		'cat_ID' => $_POST['edit_category'],
+		'cat_name' => $_POST['category_name'],
+	]);
+}
+
 if ($_POST['delete_category']) {
 
 	$delete_category_alert = false;
@@ -33,6 +40,8 @@ $categories_list = get_categories([
 ]);
 ?>
 
+<pre><?php // print_r($categories_list) ?></pre>
+
 <?php if ($delete_category_alert): ?>
 	<div class="alert alert-warning alert-dismissible fade show" role="alert">
 		Категория содержит элеметы или подкатегории. Удаление невозможно.
@@ -49,8 +58,11 @@ $categories_list = get_categories([
 						<b class=""><?php echo $value->name; ?></b>
 					</a>
 					<?php if ($is_admin) {
+						include 'sidebar_add_subcategory.php';
 						$delete_category = $value;
 						include 'sidebar_delete_category.php';
+						$edit_category = $value;
+						include 'sidebar_edit_category.php';
 					} ?>
 					<ul data-target="subcategories_list" data-value="<?php echo $value->cat_ID; ?>" class="d-none">
 						<?php $subcategory_flag = false; ?>
@@ -64,28 +76,12 @@ $categories_list = get_categories([
 									<?php if ($is_admin) {
 										$delete_category = $value1;
 										include 'sidebar_delete_category.php';
+										$edit_category = $value1;
+						include 'sidebar_edit_category.php';
 									} ?>
 								</li>
 							<?php endif ?>
-						<?php endforeach ?>
-						<?php if ($is_admin): ?>
-							<form action="" method="post">
-								<div class="card">
-									<div class="card-header">
-										Добавить подкатегорию
-									</div>
-									<div class="card-body">
-										<input type="text" name="add_subcategory" class="form-control">
-										<input type="hidden" name="parent" value="<?php echo $value->cat_ID; ?>">
-									</div>
-									<div class="card-footer">										
-										<button class="btn btn-sm btn-outline-secondary">
-											Сохранить
-										</button>
-									</div>
-								</div>
-							</form>			
-						<?php endif ?>						
+						<?php endforeach ?>				
 					</ul>
 					<?php if ($subcategory_flag): ?>
 						<span

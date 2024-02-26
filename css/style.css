@@ -12,8 +12,7 @@
 	right: 10px;
 }
 
-.delete_category_button {
+.button-small-icon {
 	border: none;
 	background: transparent;
-	color: firebrick;
 }
