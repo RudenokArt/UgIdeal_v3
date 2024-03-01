@@ -48,7 +48,7 @@ $photo_catalog = [
 							href="#"
 							v-if="item.gallery_id==selected_category"				
 							class="col p-1 m-1 bg-light text-decoration-none"
-							><img v-bind:src="photo_catalog.img_folder+item.thumb_url" width="150" alt="img">
+							><img v-on:click="selected_image=item" v-bind:src="photo_catalog.img_folder+item.thumb_url" width="150" alt="img">
 							<br>
 							<span>{{item.slug}}</span></a>
 						</template>
@@ -86,6 +86,7 @@ $photo_catalog = [
 			return {
 				photo_catalog: JSON.parse('<?php echo json_encode($photo_catalog);?>'),
 				selected_category: false,
+				selected_image: false,
 			};
 		}
 	}).mount('#modular_add');
